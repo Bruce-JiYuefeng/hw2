@@ -95,7 +95,7 @@ void MyDataStore::addToCart(const std::string& username, Product* p) {
 void MyDataStore::viewCart(const std::string& username) {
     std::map<std::string, std::vector<Product*>>::iterator cartIt = userCarts.find(username);
     if(cartIt == userCarts.end() || cartIt->second.empty()) {
-        std::cerr << "User not found or cart is empty." << std::endl;
+        std::cerr << "Invalid username" << std::endl;
         return;
     }
 
@@ -111,7 +111,7 @@ void MyDataStore::viewCart(const std::string& username) {
 void MyDataStore::buyCart(const std::string& username) {
     std::map<std::string, std::vector<Product*>>::iterator cartIt = userCarts.find(username);
     if(cartIt == userCarts.end()) {
-        std::cerr << "User not found or cart is empty." << std::endl;
+        std::cerr << "Invalid username" << std::endl;
         return;
     }
 

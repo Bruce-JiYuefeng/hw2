@@ -105,10 +105,8 @@ int main(int argc, char* argv[])
                 string username;
                 int hitNumber;
                 if (ss >> username >> hitNumber) {
-                    //cout << static_cast<int>(hits.size());
                     if (hitNumber >= 1 && hitNumber <= static_cast<int>(hits.size())) {
                         ds.addToCart(username, hits[hitNumber - 1]);
-                        //cout << "adding complete";
                     } else {
                         cout << "Invalid request" << endl;
                     }
@@ -126,8 +124,6 @@ int main(int argc, char* argv[])
                     ds.buyCart(username);
                 }
             }
-
-
 
             else {
                 cout << "Unknown command" << endl;
