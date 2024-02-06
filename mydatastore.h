@@ -26,7 +26,7 @@ public:
 private:
     std::map<std::string, std::set<Product*>> keywordToProductMap;
     std::map<std::string, User*> usernameToUserMap;
-    std::map<std::string, std::vector<Product*>> userCarts; // Maps usernames to their carts (a list of products)
+    std::map<std::string, std::vector<Product*>> cart; // Maps usernames to their carts (a list of products)
 };
 
 #endif

@@ -25,7 +25,7 @@ MyDataStore::~MyDataStore() {
 
     keywordToProductMap.clear();
     usernameToUserMap.clear();
-    userCarts.clear();
+    cart.clear();
 }
 
 
@@ -84,7 +84,7 @@ void MyDataStore::dump(std::ostream& ofile) {
 void MyDataStore::addToCart(const std::string& username, Product* p) {
     std::map<std::string, User*>::iterator userIt = usernameToUserMap.find(username);
     if(userIt != usernameToUserMap.end()) {
-        userCarts[username].push_back(p);
+        cart[username].push_back(p);
         std::cout << "Added to " << username << "'s cart: " << p->displayString() << std::endl; // For debugging
     }
     else {
@@ -93,8 +93,8 @@ void MyDataStore::addToCart(const std::string& username, Product* p) {
 }
 
 void MyDataStore::viewCart(const std::string& username) {
-    std::map<std::string, std::vector<Product*>>::iterator cartIt = userCarts.find(username);
-    if(cartIt == userCarts.end() || cartIt->second.empty()) {
+    std::map<std::string, std::vector<Product*>>::iterator cartIt = cart.find(username);
+    if(cartIt == cart.end() || cartIt->second.empty()) {
         std::cerr << "Invalid username" << std::endl;
         return;
     }
@@ -109,8 +109,8 @@ void MyDataStore::viewCart(const std::string& username) {
 
 
 void MyDataStore::buyCart(const std::string& username) {
-    std::map<std::string, std::vector<Product*>>::iterator cartIt = userCarts.find(username);
-    if(cartIt == userCarts.end()) {
+    std::map<std::string, std::vector<Product*>>::iterator cartIt = cart.find(username);
+    if(cartIt == cart.end()) {
         std::cerr << "Invalid username" << std::endl;
         return;
     }
