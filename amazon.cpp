@@ -115,14 +115,12 @@ int main(int argc, char* argv[])
             else if (cmd == "VIEWCART") {
                 string username;
                 if (ss >> username) {
-                    // Assume you have a method in MyDataStore to view a user's cart
                     ds.viewCart(username);
                 }
             }
             else if (cmd == "BUYCART") {
                 string username;
                 if (ss >> username) {
-                    // Assume you have a method in MyDataStore to buy items in a user's cart
                     ds.buyCart(username);
                 }
             }

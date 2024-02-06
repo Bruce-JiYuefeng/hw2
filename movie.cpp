@@ -11,7 +11,7 @@ Movie::~Movie() {}
 
 set<string> Movie::keywords() const {
     set<string> keyWords = parseStringToWords(name_);
-    keyWords.insert(genre_); // Genre is used as a whole keyword, not split
+    keyWords.insert(convToLower(genre_)); // Genre is used as a whole keyword, not split
     return keyWords;
 }
 

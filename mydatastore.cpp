@@ -6,15 +6,26 @@
 MyDataStore::MyDataStore() {}
 
 MyDataStore::~MyDataStore() {
-    // Cleanup 
-    for (auto iter : usernameToUserMap) {
-        delete iter.second;
-    }
-    for (auto iter : keywordToProductMap) {
-        for (auto prod : iter.second) {
-            delete prod;
+    std::set<Product*> uniqueProducts; 
+    for (auto& pair : keywordToProductMap) {
+        for (Product* prod : pair.second) {
+            uniqueProducts.insert(prod); 
         }
     }
+
+    // delete each product
+    for (Product* prod : uniqueProducts) {
+        delete prod;
+    }
+
+    // Clean up users
+    for (auto& pair : usernameToUserMap) {
+        delete pair.second;
+    }
+
+    keywordToProductMap.clear();
+    usernameToUserMap.clear();
+    userCarts.clear();
 }
 
 void MyDataStore::addProduct(Product* p) {
@@ -65,13 +76,16 @@ void MyDataStore::dump(std::ostream& ofile) {
 }
 
 void MyDataStore::addToCart(const std::string& username, Product* p) {
-    if(usernameToUserMap.find(username) != usernameToUserMap.end()) {
+    auto userIt = usernameToUserMap.find(username);
+    if(userIt != usernameToUserMap.end()) {
         userCarts[username].push_back(p);
+        std::cout << "Added to cart: " << p->displayString() << " for user: " << username << std::endl; // Debugging log
     }
     else {
-        std::cerr << "User not found." << std::endl;
+        std::cerr << "User not found: " << username << std::endl;
     }
 }
+
 
 void MyDataStore::viewCart(const std::string& username) {
     if(userCarts.find(username) == userCarts.end()) {
