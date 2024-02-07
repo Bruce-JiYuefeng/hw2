@@ -85,33 +85,36 @@ void MyDataStore::addToCart(const std::string& username, Product* p) {
     std::map<std::string, User*>::iterator userIt = usernameToUserMap.find(username);
     if(userIt != usernameToUserMap.end()) {
         cart[username].push_back(p);
-        std::cout << "Added to " << username << "'s cart: " << p->displayString() << std::endl; // For debugging
+        //std::cout << "Added to " << username << "'s cart: " << p->displayString() << std::endl; // For debugging
     }
     else {
-        std::cerr << "User not found: " << username << std::endl; // For debugging
+        std::cout << "Invalid request" << std::endl; // For debugging
     }
 }
 
 void MyDataStore::viewCart(const std::string& username) {
     std::map<std::string, std::vector<Product*>>::iterator cartIt = cart.find(username);
     if(cartIt == cart.end() || cartIt->second.empty()) {
-        std::cerr << "Invalid username" << std::endl;
+        std::cout << "Invalid username" << std::endl;
         return;
     }
 
-    std::cout << "User Cart [" << username << "]:" << std::endl;
+    //std::cout << "User Cart [" << username << "]:" << std::endl;
     int count = 1;
     for(std::vector<Product*>::iterator it = cartIt->second.begin(); it != cartIt->second.end(); ++it) {
-        std::cout << count << ". " << (*it)->displayString() << std::endl;
+        std::cout << "Item " << count << std::endl;
+        std::cout << (*it)->displayString() << std::endl;
         ++count;
     }
+    
+    std::cout << std::endl;
 }
 
 
 void MyDataStore::buyCart(const std::string& username) {
     std::map<std::string, std::vector<Product*>>::iterator cartIt = cart.find(username);
     if(cartIt == cart.end()) {
-        std::cerr << "Invalid username" << std::endl;
+        std::cout << "Invalid username" << std::endl;
         return;
     }
 
